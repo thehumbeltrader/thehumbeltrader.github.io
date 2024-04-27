@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Time and Timer Display</title>
+    <title>Time and Timers Display</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,9 +12,9 @@
         }
         #time {
             font-size: 4em; /* Adjust the font size as needed */
-            margin-top: 50px; /* Adjust the margin to center vertically */
+            margin-top: 20px; /* Adjust the margin to center vertically */
         }
-        #timer {
+        .timer {
             font-size: 2em; /* Adjust the font size as needed */
             margin-top: 20px; /* Adjust the margin */
         }
@@ -22,7 +22,10 @@
 </head>
 <body>
     <div id="time"></div>
-    <div id="timer"></div>
+    <div id="timer15" class="timer"></div>
+    <div id="timer1" class="timer"></div>
+    <div id="timer2" class="timer"></div>
+    <div id="timer5" class="timer"></div>
 
     <script>
         function updateTime() {
@@ -34,25 +37,34 @@
             document.getElementById('time').textContent = timeString;
         }
 
-        function updateTimer() {
+        function updateTimers() {
             var now = new Date();
-            var minutes = now.getMinutes();
             var seconds = now.getSeconds();
-            var remainingSeconds = 60 - seconds;
-            var remainingMinutes = 59 - minutes;
-            var timerString = remainingMinutes.toString().padStart(2, '0') + ':' + remainingSeconds.toString().padStart(2, '0');
-            document.getElementById('timer').textContent = "Next minute in " + timerString;
+            var remainingSeconds15 = 15 - seconds % 15;
+            var remainingSeconds1 = 60 - seconds;
+            var remainingSeconds2 = 120 - seconds;
+            var remainingSeconds5 = 300 - seconds;
+
+            var timerString15 = remainingSeconds15.toString().padStart(2, '0');
+            var timerString1 = Math.floor(remainingSeconds1 / 60).toString().padStart(2, '0') + ':' + (remainingSeconds1 % 60).toString().padStart(2, '0');
+            var timerString2 = Math.floor(remainingSeconds2 / 60).toString().padStart(2, '0') + ':' + (remainingSeconds2 % 60).toString().padStart(2, '0');
+            var timerString5 = Math.floor(remainingSeconds5 / 60).toString().padStart(2, '0') + ':' + (remainingSeconds5 % 60).toString().padStart(2, '0');
+
+            document.getElementById('timer15').textContent = "15 second close in " + timerString15 + " seconds";
+            document.getElementById('timer1').textContent = "1 minute close in " + timerString1;
+            document.getElementById('timer2').textContent = "2 minute close in " + timerString2;
+            document.getElementById('timer5').textContent = "5 minute close in " + timerString5;
         }
 
         // Update time every second
         setInterval(updateTime, 1000);
 
-        // Update timer every second
-        setInterval(updateTimer, 1000);
+        // Update timers every second
+        setInterval(updateTimers, 1000);
 
-        // Initial calls to display time and timer immediately
+        // Initial calls to display time and timers immediately
         updateTime();
-        updateTimer();
+        updateTimers();
     </script>
 </body>
 </html>
