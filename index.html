@@ -45,15 +45,20 @@
             var remainingSeconds2 = 120 - seconds;
             var remainingSeconds5 = 300 - seconds;
 
+            var intervalCount = Math.floor(seconds / 15) + 1; // Get the current 15-second interval count
+
+            var intervals = ["first", "second", "third", "fourth"];
+            var currentInterval = intervals[intervalCount - 1]; // Determine the current interval
+
             var timerString15 = remainingSeconds15.toString().padStart(2, '0');
             var timerString1 = Math.floor(remainingSeconds1 / 60).toString().padStart(2, '0') + ':' + (remainingSeconds1 % 60).toString().padStart(2, '0');
             var timerString2 = Math.floor(remainingSeconds2 / 60).toString().padStart(2, '0') + ':' + (remainingSeconds2 % 60).toString().padStart(2, '0');
             var timerString5 = Math.floor(remainingSeconds5 / 60).toString().padStart(2, '0') + ':' + (remainingSeconds5 % 60).toString().padStart(2, '0');
 
-            document.getElementById('timer15').textContent = "15 second close in " + timerString15 + " seconds";
-            document.getElementById('timer1').textContent = "1 minute close in " + timerString1;
-            document.getElementById('timer2').textContent = "2 minute close in " + timerString2;
-            document.getElementById('timer5').textContent = "5 minute close in " + timerString5;
+            document.getElementById('timer15').textContent = "Next 15 second mark in " + timerString15 + " seconds ( " + currentInterval + " interval of the minute )";
+            document.getElementById('timer1').textContent = "Next 1 minute mark in " + timerString1;
+            document.getElementById('timer2').textContent = "Next 2 minute mark in " + timerString2;
+            document.getElementById('timer5').textContent = "Next 5 minute mark in " + timerString5;
         }
 
         // Update time every second
