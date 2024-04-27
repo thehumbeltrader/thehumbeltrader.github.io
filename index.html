@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Time Display</title>
+    <title>Time and Timer Display</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,12 +12,17 @@
         }
         #time {
             font-size: 4em; /* Adjust the font size as needed */
-            margin-top: 100px; /* Adjust the margin to center vertically */
+            margin-top: 50px; /* Adjust the margin to center vertically */
+        }
+        #timer {
+            font-size: 2em; /* Adjust the font size as needed */
+            margin-top: 20px; /* Adjust the margin */
         }
     </style>
 </head>
 <body>
     <div id="time"></div>
+    <div id="timer"></div>
 
     <script>
         function updateTime() {
@@ -29,11 +34,25 @@
             document.getElementById('time').textContent = timeString;
         }
 
+        function updateTimer() {
+            var now = new Date();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+            var remainingSeconds = 60 - seconds;
+            var remainingMinutes = 59 - minutes;
+            var timerString = remainingMinutes.toString().padStart(2, '0') + ':' + remainingSeconds.toString().padStart(2, '0');
+            document.getElementById('timer').textContent = "Next minute in " + timerString;
+        }
+
         // Update time every second
         setInterval(updateTime, 1000);
 
-        // Initial call to display time immediately
+        // Update timer every second
+        setInterval(updateTimer, 1000);
+
+        // Initial calls to display time and timer immediately
         updateTime();
+        updateTimer();
     </script>
 </body>
 </html>
