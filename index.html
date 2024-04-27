@@ -56,9 +56,9 @@
             var timerString5 = Math.floor(remainingSeconds5 / 60).toString().padStart(2, '0') + ':' + (remainingSeconds5 % 60).toString().padStart(2, '0');
 
             document.getElementById('timer15').textContent = currentInterval;
-            document.getElementById('timer1').textContent = "Next 1 M Candle in " + timerString1;
-            document.getElementById('timer2').textContent = "Next 2 M Candle in " + timerString2;
-            document.getElementById('timer5').textContent = "Next 5 M Candle in " + timerString5;
+            document.getElementById('timer1').textContent = "1M " + timerString1;
+            document.getElementById('timer2').textContent = "2M " + timerString2;
+            document.getElementById('timer5').textContent = "5M " + timerString5;
         }
 
         // Update time every second
