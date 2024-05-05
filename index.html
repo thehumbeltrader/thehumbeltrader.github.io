@@ -15,7 +15,7 @@
             margin-top: 6px; /* Adjust the margin to center vertically */
         }
         .timer {
-            font-size: 8em; /* Adjust the font size as needed */
+            font-size: 3em; /* Adjust the font size as needed */
             margin-top: 6px; /* Adjust the margin */
         }
     </style>
@@ -34,7 +34,7 @@
             var minutes = now.getMinutes().toString().padStart(2, '0');
             var seconds = now.getSeconds().toString().padStart(2, '0');
             var timeString = hours + ':' + minutes + ':' + seconds;
-            document.getElementById('time').textContent = timeString;
+            // document.getElementById('time').textContent = timeString;
         }
 
         function updateTimers() {
