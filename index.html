@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Current 5-Minute Time Frame</title>
 <script>
-    // Function to update the displayed minutes
+    // Function to update the displayed minutes and their odd/even status
     function updateMinutes() {
         var currentTime = new Date();
         var currentMinute = currentTime.getMinutes();
@@ -19,10 +19,15 @@
             (currentMinute + 4) % 60
         ];
 
-        // Update the HTML content with the current and next 4 minutes
+        // Update the HTML content with the current and next 4 minutes and their odd/even status
         for (var i = 0; i < 5; i++) {
-            var element = document.getElementById('minute' + (i + 1));
-            element.textContent = minutes[i];
+            var minuteNumber = minutes[i];
+            var oddEvenStatus = minuteNumber % 2 === 0 ? 'Even' : 'Odd'; // Check if the minute number is even or odd
+            var elementMinute = document.getElementById('minute' + (i + 1));
+            var elementOddEven = document.getElementById('oddEven' + (i + 1));
+            
+            elementMinute.textContent = minuteNumber;
+            elementOddEven.textContent = oddEvenStatus;
         }
     }
 
@@ -33,10 +38,10 @@
 </head>
 <body>
     <h1>Current 5-Minute Time Frame</h1>
-    <p>First minute: <span id="minute1"></span></p>
-    <p>Second minute: <span id="minute2"></span></p>
-    <p>Third minute: <span id="minute3"></span></p>
-    <p>Fourth minute: <span id="minute4"></span></p>
-    <p>Fifth minute: <span id="minute5"></span></p>
+    <p>First minute: <span id="minute1"></span> (<span id="oddEven1"></span>)</p>
+    <p>Second minute: <span id="minute2"></span> (<span id="oddEven2"></span>)</p>
+    <p>Third minute: <span id="minute3"></span> (<span id="oddEven3"></span>)</p>
+    <p>Fourth minute: <span id="minute4"></span> (<span id="oddEven4"></span>)</p>
+    <p>Fifth minute: <span id="minute5"></span> (<span id="oddEven5"></span>)</p>
 </body>
 </html>
