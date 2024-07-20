@@ -1,75 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Time and Timers Display</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f0f0f0;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Current 5-Minute Time Frame</title>
+<script>
+    // Function to update the displayed minutes
+    function updateMinutes() {
+        var currentTime = new Date();
+        var currentMinute = currentTime.getMinutes();
+
+        // Assuming we are displaying the next 5 minutes
+        var minutes = [
+            currentMinute,
+            (currentMinute + 1) % 60,
+            (currentMinute + 2) % 60,
+            (currentMinute + 3) % 60,
+            (currentMinute + 4) % 60
+        ];
+
+        // Update the HTML content with the current and next 4 minutes
+        for (var i = 0; i < 5; i++) {
+            var element = document.getElementById('minute' + (i + 1));
+            element.textContent = minutes[i];
         }
-        #time {
-            font-size: 3em; /* Adjust the font size as needed */
-            margin-top: 6px; /* Adjust the margin to center vertically */
-        }
-        .timer {
-            font-size: 12em; /* Adjust the font size as needed */
-            margin-top: 6px; /* Adjust the margin */
-        }
-    </style>
+    }
+
+    // Call updateMinutes function initially and every 1 minute thereafter
+    updateMinutes(); // Initial call
+    setInterval(updateMinutes, 60000); // Update every minute
+</script>
 </head>
 <body>
-    <div id="time"></div>
-    <div id="timer15" class="timer"></div>
-    <div id="timer1" class="timer"></div>
-    <div id="timer2" class="timer"></div>
-    <div id="timer5" class="timer"></div>
-
-    <script>
-        function updateTime() {
-            var now = new Date();
-            var hours = now.getHours().toString().padStart(2, '0');
-            var minutes = now.getMinutes().toString().padStart(2, '0');
-            var seconds = now.getSeconds().toString().padStart(2, '0');
-            var timeString = hours + ':' + minutes + ':' + seconds;
-            // document.getElementById('time').textContent = timeString;
-        }
-
-        function updateTimers() {
-            var now = new Date();
-            var seconds = now.getSeconds();
-            var remainingSeconds15 = 15 - seconds % 15;
-            var remainingSeconds1 = 60 - seconds;
-            var remainingSeconds2 = 120 - seconds;
-            var remainingSeconds5 = 300 - seconds;
-
-            var intervalCount = Math.floor(seconds / 15) + 1; // Get the current 15-second interval count
-
-            var intervals = ["1", "2", "3", "4"];
-            var currentInterval = intervals[intervalCount - 1]; // Determine the current interval
-
-            var timerString15 = remainingSeconds15.toString().padStart(2, '0');
-            var timerString1 = Math.floor(remainingSeconds1 / 60).toString().padStart(2, '0') + ':' + (remainingSeconds1 % 60).toString().padStart(2, '0');
-            var timerString2 = Math.floor(remainingSeconds2 / 60).toString().padStart(2, '0') + ':' + (remainingSeconds2 % 60).toString().padStart(2, '0');
-            var timerString5 = Math.floor(remainingSeconds5 / 60).toString().padStart(2, '0') + ':' + (remainingSeconds5 % 60).toString().padStart(2, '0');
-
-           document.getElementById('timer15').textContent = currentInterval;
-           document.getElementById('timer1').textContent = "1M " + timerString1;
-           document.getElementById('timer2').textContent = "2M " + timerString2;
-           document.getElementById('timer5').textContent = "5M " + timerString5;
-        }
-
-        // Update time every second
-        setInterval(updateTime, 1000);
-
-        // Update timers every second
-        setInterval(updateTimers, 1000);
-
-        // Initial calls to display time and timers immediately
-        updateTime();
-        updateTimers();
-    </script>
+    <h1>Current 5-Minute Time Frame</h1>
+    <p>First minute: <span id="minute1"></span></p>
+    <p>Second minute: <span id="minute2"></span></p>
+    <p>Third minute: <span id="minute3"></span></p>
+    <p>Fourth minute: <span id="minute4"></span></p>
+    <p>Fifth minute: <span id="minute5"></span></p>
 </body>
 </html>
