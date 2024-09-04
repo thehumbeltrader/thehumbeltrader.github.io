@@ -11,11 +11,11 @@
             background-color: #f0f0f0;
         }
         #time {
-            font-size: 3em; /* Adjust the font size as needed */
+            font-size: 12em; /* Adjust the font size as needed */
             margin-top: 6px; /* Adjust the margin to center vertically */
         }
         .timer {
-            font-size: 3em; /* Adjust the font size as needed */
+            font-size: 12em; /* Adjust the font size as needed */
             margin-top: 6px; /* Adjust the margin */
         }
     </style>
@@ -47,7 +47,7 @@
 
             var intervalCount = Math.floor(seconds / 15) + 1; // Get the current 15-second interval count
 
-            var intervals = ["1", "2", "3", "4"];
+            var intervals = ["1-Ready", "2", "3", "4"];
             var currentInterval = intervals[intervalCount - 1]; // Determine the current interval
 
             var timerString15 = remainingSeconds15.toString().padStart(2, '0');
@@ -56,9 +56,9 @@
             var timerString5 = Math.floor(remainingSeconds5 / 60).toString().padStart(2, '0') + ':' + (remainingSeconds5 % 60).toString().padStart(2, '0');
 
            document.getElementById('timer15').textContent = currentInterval;
-           document.getElementById('timer1').textContent = "1M " + timerString1;
-           document.getElementById('timer2').textContent = "2M " + timerString2;
-           document.getElementById('timer5').textContent = "5M " + timerString5;
+           //document.getElementById('timer1').textContent = "1M " + timerString1;
+           //document.getElementById('timer2').textContent = "2M " + timerString2;
+           //document.getElementById('timer5').textContent = "5M " + timerString5;
         }
 
         // Update time every second
