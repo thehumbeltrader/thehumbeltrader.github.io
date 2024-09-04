@@ -23,6 +23,7 @@
 <body>
     <div id="time"></div>
     <div id="timer15" class="timer"></div>
+    <div id="timer30" class="timer"></div>
     <div id="timer1" class="timer"></div>
     <div id="timer2" class="timer"></div>
     <div id="timer5" class="timer"></div>
@@ -41,42 +42,58 @@
             var now = new Date();
             var seconds = now.getSeconds();
             var remainingSeconds15 = 15 - (seconds % 15);
+            var remainingSeconds30 = 30 - (seconds % 30);
             var remainingSeconds1 = 60 - (seconds % 60);
             var remainingSeconds2 = 120 - (seconds % 120);
             var remainingSeconds5 = 300 - (seconds % 300);
 
-            var intervalCount = Math.floor(seconds / 15) + 1; // Get the current 15-second interval count
-            var intervals = ["1", "2", "3", "4"]; // Example intervals
-            var currentInterval = intervals[(intervalCount - 1) % intervals.length]; // Prevent index out of bounds
-            
-            // Set color based on the current interval
-            var color;
-            switch (currentInterval) {
+            var intervalCount15 = Math.floor(seconds / 15) + 1; // Current 15-second interval count
+            var intervalCount30 = Math.floor(seconds / 30) + 1; // Current 30-second interval count
+
+            var intervals15 = ["1", "2", "3", "4"];
+            var currentInterval15 = intervals15[(intervalCount15 - 1) % intervals15.length];
+
+            // Set color based on the current interval for the 15-second timer
+            var color15;
+            switch (currentInterval15) {
                 case "1":
-                    color = "red";
+                    color15 = "red";
                     break;
                 case "2":
-                    color = "green";
+                    color15 = "green";
                     break;
                 case "3":
-                    color = "yellow";
+                    color15 = "yellow";
                     break;
                 case "4":
-                    color = "orange";
+                    color15 = "orange";
                     break;
                 default:
-                    color = "black"; // Default color if something goes wrong
+                    color15 = "black"; // Default color if something goes wrong
             }
 
+            // Determine Odd or Even for the 30-second timer
+            var currentInterval30 = intervalCount30 % 2 === 0 ? "Even" : "Odd";
+            var color30 = currentInterval30 === "Odd" ? "blue" : "purple"; // Optional: Set color for Odd/Even
+
+            // Formatting timer strings
             var timerString15 = remainingSeconds15.toString().padStart(2, '0');
+            var timerString30 = remainingSeconds30.toString().padStart(2, '0');
             var timerString1 = Math.floor(remainingSeconds1 / 60).toString().padStart(2, '0') + ':' + (remainingSeconds1 % 60).toString().padStart(2, '0');
             var timerString2 = Math.floor(remainingSeconds2 / 60).toString().padStart(2, '0') + ':' + (remainingSeconds2 % 60).toString().padStart(2, '0');
             var timerString5 = Math.floor(remainingSeconds5 / 60).toString().padStart(2, '0') + ':' + (remainingSeconds5 % 60).toString().padStart(2, '0');
 
+            // Update the 15-second timer
             var timer15Element = document.getElementById('timer15');
-            timer15Element.textContent = "Interval " + currentInterval + ": " + timerString15 + "s";
-            timer15Element.style.color = color; // Apply the color
+            timer15Element.textContent = "Interval " + currentInterval15 + ": " + timerString15 + "s";
+            timer15Element.style.color = color15; // Apply the color
 
+            // Update the 30-second timer
+            var timer30Element = document.getElementById('timer30');
+            timer30Element.textContent = "Interval " + currentInterval30 + ": " + timerString30 + "s";
+            timer30Element.style.color = color30; // Apply the color for Odd/Even
+
+            // Update the other timers
             document.getElementById('timer1').textContent = "1M " + timerString1;
             document.getElementById('timer2').textContent = "2M " + timerString2;
             document.getElementById('timer5').textContent = "5M " + timerString5;
