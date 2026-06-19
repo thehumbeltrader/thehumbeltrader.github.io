@@ -2,112 +2,78 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Time and Timers Display</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Candle Timer</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: #0f0f0f;
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            background-color: #f0f0f0;
+            overflow: hidden;
         }
-        #time {
-            font-size: 5em; /* Adjust the font size as needed */
-            margin-top: 6px; /* Adjust the margin to center vertically */
+
+        .candle {
+            font-size: 28vw;
+            font-weight: 700;
+            line-height: 1;
+            margin: 0;
+            text-shadow: 0 0 20px rgba(255,255,255,0.3);
         }
-        .timer {
-            font-size: 4em; /* Adjust the font size as needed */
-            margin-top: 20px; /* Adjust the margin */
+
+        .time {
+            font-size: 18vw;
+            font-weight: 600;
+            margin: 10px 0 0 0;
+            letter-spacing: -2px;
+        }
+
+        .label {
+            font-size: 5vw;
+            opacity: 0.7;
+            margin-top: 8px;
         }
     </style>
 </head>
 <body>
-    <div id="time"></div>
-    <div id="timer15" class="timer"></div>
-    <div id="timer30" class="timer"></div>
-    <div id="timer1" class="timer"></div>
-    <div id="timer2" class="timer"></div>
-    <div id="timer5" class="timer"></div>
+    <div class="candle" id="candle">1</div>
+    <div class="time" id="time">15</div>
+    <div class="label">SECONDS REMAINING</div>
 
     <script>
-        function updateTime() {
-            var now = new Date();
-            var hours = now.getHours().toString().padStart(2, '0');
-            var minutes = now.getMinutes().toString().padStart(2, '0');
-            var seconds = now.getSeconds().toString().padStart(2, '0');
-            var timeString = hours + ':' + minutes + ':' + seconds;
-            document.getElementById('time').textContent = timeString;
-        }
+        function updateCandle() {
+            const now = new Date();
+            const seconds = now.getSeconds();
+            
+            // Current 15-second interval (1,2,3,4)
+            const interval = Math.floor(seconds / 15) + 1;
+            const candleElement = document.getElementById('candle');
+            
+            candleElement.textContent = interval;
 
-        function updateTimers() {
-            var now = new Date();
-            var seconds = now.getSeconds();
-            var remainingSeconds15 = 15 - (seconds % 15);
-            var remainingSeconds30 = 30 - (seconds % 30);
-            var remainingSeconds1 = 60 - (seconds % 60);
-            var remainingSeconds2 = 120 - (seconds % 120);
-            var remainingSeconds5 = 300 - (seconds % 300);
-
-            var intervalCount15 = Math.floor(seconds / 15) + 1; // Current 15-second interval count
-            var intervalCount30 = Math.floor(seconds / 30) + 1; // Current 30-second interval count
-
-            var intervals15 = ["1", "2", "3", "4"];
-            var currentInterval15 = intervals15[(intervalCount15 - 1) % intervals15.length];
-
-            // Set color based on the current interval for the 15-second timer
-            var color15;
-            switch (currentInterval15) {
-                case "1":
-                    color15 = "red";
-                    break;
-                case "2":
-                    color15 = "green";
-                    break;
-                case "3":
-                    color15 = "yellow";
-                    break;
-                case "4":
-                    color15 = "orange";
-                    break;
-                default:
-                    color15 = "black"; // Default color if something goes wrong
+            // Color coding
+            switch(interval) {
+                case 1: candleElement.style.color = '#ff3b3b'; break;     // Red
+                case 2: candleElement.style.color = '#00ff7f'; break;     // Green
+                case 3: candleElement.style.color = '#ffd700'; break;     // Yellow/Gold
+                case 4: candleElement.style.color = '#ff8c00'; break;     // Orange
             }
 
-            // Determine Odd or Even for the 30-second timer
-            var currentInterval30 = intervalCount30 % 2 === 0 ? "Even" : "Odd";
-            var color30 = currentInterval30 === "Odd" ? "blue" : "purple"; // Optional: Set color for Odd/Even
-
-            // Formatting timer strings
-            var timerString15 = remainingSeconds15.toString().padStart(2, '0');
-            var timerString30 = remainingSeconds30.toString().padStart(2, '0');
-            var timerString1 = Math.floor(remainingSeconds1 / 60).toString().padStart(2, '0') + ':' + (remainingSeconds1 % 60).toString().padStart(2, '0');
-            var timerString2 = Math.floor(remainingSeconds2 / 60).toString().padStart(2, '0') + ':' + (remainingSeconds2 % 60).toString().padStart(2, '0');
-            var timerString5 = Math.floor(remainingSeconds5 / 60).toString().padStart(2, '0') + ':' + (remainingSeconds5 % 60).toString().padStart(2, '0');
-
-            // Update the 15-second timer
-            var timer15Element = document.getElementById('timer15');
-            timer15Element.textContent = " " + currentInterval15 + ": " + timerString15 + "s";
-            timer15Element.style.color = color15; // Apply the color
-
-            // Update the 30-second timer
-            var timer30Element = document.getElementById('timer30');
-            timer30Element.textContent = " " + currentInterval30 + ": " + timerString30 + "s";
-            timer30Element.style.color = color30; // Apply the color for Odd/Even
-
-            // Update the other timers
-            document.getElementById('timer1').textContent = "1M " + timerString1;
-            //document.getElementById('timer2').textContent = "2M " + timerString2;
-            //document.getElementById('timer5').textContent = "5M " + timerString5;
+            // Remaining seconds in current 15s cycle
+            const remaining = 15 - (seconds % 15);
+            document.getElementById('time').textContent = remaining;
         }
 
-        // Update time every second
-        setInterval(updateTime, 1000);
-
-        // Update timers every second
-        setInterval(updateTimers, 1000);
-
-        // Initial calls to display time and timers immediately
-        updateTime();
-        updateTimers();
+        // Update every second
+        setInterval(updateCandle, 1000);
+        updateCandle(); // Initial call
     </script>
 </body>
 </html>
