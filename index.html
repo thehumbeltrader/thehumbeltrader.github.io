@@ -14,23 +14,28 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             text-align: center;
             overflow: hidden;
         }
         .candle {
-            font-size: 45vw;
+            font-size: 55vw;
             font-weight: 700;
             line-height: 1;
             margin: 0;
             text-shadow: 0 0 20px rgba(255,255,255,0.3);
         }
         .time {
-            font-size: 40vw;
+            font-size: 50vw;
             font-weight: 600;
             margin: 10px 0 0 0;
             letter-spacing: -2px;
+        }
+        /* Phones in portrait: viewport is narrow, so scale up by width */
+        @media (orientation: portrait) {
+            .candle { font-size: 65vw; }
+            .time   { font-size: 40vw; }
         }
     </style>
 </head>
