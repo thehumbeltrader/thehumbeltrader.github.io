@@ -19,7 +19,6 @@
             text-align: center;
             overflow: hidden;
         }
-
         .candle {
             font-size: 28vw;
             font-weight: 700;
@@ -27,26 +26,17 @@
             margin: 0;
             text-shadow: 0 0 20px rgba(255,255,255,0.3);
         }
-
         .time {
             font-size: 18vw;
             font-weight: 600;
             margin: 10px 0 0 0;
             letter-spacing: -2px;
         }
-
-        .label {
-            font-size: 5vw;
-            opacity: 0.7;
-            margin-top: 8px;
-        }
     </style>
 </head>
 <body>
     <div class="candle" id="candle">1</div>
     <div class="time" id="time">15</div>
-    <div class="label">SECONDS REMAINING</div>
-
     <script>
         function updateCandle() {
             const now = new Date();
@@ -57,7 +47,6 @@
             const candleElement = document.getElementById('candle');
             
             candleElement.textContent = interval;
-
             // Color coding
             switch(interval) {
                 case 1: candleElement.style.color = '#ff3b3b'; break;     // Red
@@ -65,12 +54,10 @@
                 case 3: candleElement.style.color = '#ffd700'; break;     // Yellow/Gold
                 case 4: candleElement.style.color = '#ff8c00'; break;     // Orange
             }
-
             // Remaining seconds in current 15s cycle
             const remaining = 15 - (seconds % 15);
             document.getElementById('time').textContent = remaining;
         }
-
         // Update every second
         setInterval(updateCandle, 1000);
         updateCandle(); // Initial call
